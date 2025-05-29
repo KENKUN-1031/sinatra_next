@@ -1,6 +1,11 @@
 require 'sinatra'
+require 'sinatra/reloader' if development?
 require 'json'
 require 'pg'
+
+configure do
+  enable :cross_origin
+end
 
 # 簡易的な DB 接続例（環境変数で調整可）
 DB = PG.connect(
@@ -16,7 +21,7 @@ end
 
 # JSON レスポンスのサンプル
 get '/api/hello' do
-  { message: 'Hello from Sinatra!' }.to_json
+  { message: 'Hello from Sinatra!3' }.to_json
 end
 
 # DB からデータ取得のサンプル（テーブル users がある想定）
@@ -31,3 +36,13 @@ get '/' do
   '<h1>Sinatra Backend</h1><p>Port 8080</p>'
 end
 
+get '/api/items' do
+  puts "--------------"
+  items = [
+    { id: 1, name: 'りんご' },
+    { id: 2, name: 'バナナ' },
+    { id: 3, name: 'オレンジ' }
+  ]
+  puts items
+  { items: items }.to_json
+end

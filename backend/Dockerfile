@@ -20,4 +20,3 @@ EXPOSE 8080
 
 # Rackup で起動
 CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "--port", "8080"]
-

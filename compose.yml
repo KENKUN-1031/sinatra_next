@@ -7,6 +7,8 @@ services:
       - "8080:8080"
     volumes:
       - ./backend:/app
+    environment:
+      - DATABASE_URL=postgres://user:password@db:5432/mydatabase
     depends_on:
       - db
 
@@ -16,6 +18,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:8080/
+      - CHOKIDAR_USEPOLLING=true
     volumes:
       - ./frontend:/app
 
@@ -31,5 +38,3 @@ services:
 
 volumes:
   db-store:
-
-
