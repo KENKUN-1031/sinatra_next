@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 ruby '3.0.0'
 
 gem 'sinatra', '>= 2.1'
+gem 'sinatra-activerecord'
+gem 'activerecord', '>= 6.1'
 gem 'pg'
 gem 'thin'
 gem 'sinatra-contrib', require: false
+gem 'rake'

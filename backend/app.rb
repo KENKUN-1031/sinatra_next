@@ -1,23 +1,22 @@
 require 'sinatra'
+require 'sinatra/activerecord'
 require 'sinatra/reloader' if development?
 require 'json'
 require 'pg'
+require './models' # モデル読み込み（任意）
 
-configure do
-  enable :cross_origin
+set :database_file, 'config/database.yml'
+
+#dbに接続できるかどうかを確認してる
+get "/dbcheck" do
+  begin
+    ActiveRecord::Base.connection.execute("SELECT 1")
+    "DB接続成功！"
+  rescue => e
+    "DB接続失敗: #{e.message}"
+  end
 end
 
-# 簡易的な DB 接続例（環境変数で調整可）
-DB = PG.connect(
-  host: ENV.fetch('DB_HOST', 'db'),
-  dbname: ENV.fetch('POSTGRES_DB', 'db'),
-  user: ENV.fetch('POSTGRES_USER', 'postgres'),
-  password: ENV.fetch('POSTGRES_PASSWORD', 'password')
-)
-
-before do
-  content_type :json
-end
 
 # JSON レスポンスのサンプル
 get '/api/hello' do
@@ -37,7 +36,6 @@ get '/' do
 end
 
 get '/api/items' do
-  puts "--------------"
   items = [
     { id: 1, name: 'りんご' },
     { id: 2, name: 'バナナ' },
