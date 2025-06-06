@@ -1,1 +1,44 @@
+# OS固有のファイル
 .DS_Store
+Thumbs.db
+
+# エディタ・IDE
+*.swp
+*.swo
+*.swn
+*.bak
+*.tmp
+*.log
+*.idea/
+*.vscode/
+
+# Ruby / Bundler
+/.bundle/
+/vendor/bundle/
+/log/
+/tmp/
+*.gem
+*.rbc
+*.pid
+
+# Sinatra / ActiveRecord
+config/database.yml
+db/*.sqlite3
+db/*.sqlite3-journal
+db/schema.rb
+
+# Docker
+*.env
+.env.*
+docker-compose.override.yml
+
+# テスト・カバレッジ
+coverage/
+spec/tmp/
+test/tmp/
+rspec_failures.txt
+
+# その他
+*.log
+*.tmp
+*.bak
